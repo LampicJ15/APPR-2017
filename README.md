@@ -8,22 +8,16 @@ Za predmet analize sem si izbral svetovni avtomobilski trg. S pridobljenimi poda
 
 Podatke bom v največji meri pridobil iz spletnega portala organizacije proizvajalcev motornih vozil OICA (Organisation Internationale des Constructeurs d'Automobiles) ter Wikipedije. Podatki na spletnem mestu OICA so na voljo v formatu xls, iz Wikipedije pa jih bom pridobil z metodo data scrapping. 
 
-Povezave so podatkovnih virov:
+Povezave do podatkovnih virov:
 * Spletni portal OICA (http://www.oica.net)
 * Wikipedija (https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015)
 
 Podatke nameravam predstaviti z različnimi tabelami ter s pomočjo ostalih aplikacij. V osnovi bi ločil tri tabele:
-<<<<<<< HEAD
-* 1.tabela - prikaz podatkov o proizvodnji ter prodaji (stolpci: države, leta, tipi vozil, proizvodnja, prodaja, število vozil v uporabi)
-=======
-* 1. tabela - prikaz podatkov o proizvodnji ter prodaji (stolpci: države, leta, tipi vozil, proizvodnja, prodaja, število vozil v uporabi)
->>>>>>> 81012a166f5c9d0f4d4b7aee5a1f02b6fc07258c
-* 2.tabela - ekonomski prispevki panoge (stolpci: države, zaposlenost v panogi, investicije, produktivnost)
-* 3.tabela - proizvodnja posameznih podjetij (stolpci: leta, tipi votila, število prodanih vozil)
+* prva tabela - prikaz podatkov o proizvodnji ter prodaji (stolpci: države, leta, tipi vozil, proizvodnja, prodaja, število vozil v uporabi)
+* druga tabela - ekonomski prispevki panoge (stolpci: države, zaposlenost v panogi, investicije, produktivnost)
+* tretja tabela - proizvodnja posameznih podjetij (stolpci: leta, tipi votila, število prodanih vozil)
 
 Pri analizi podatkov se bom osredotočil na gibanje količin skozi čas, primerajvo med državami in povezave med posameznimi kategorijami.
-
-
 
 
 ## Program
