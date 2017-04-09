@@ -13,7 +13,11 @@ Povezave so podatkovnih virov:
 * Wikipedija (https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015)
 
 Podatke nameravam predstaviti z različnimi tabelami ter s pomočjo ostalih aplikacij. V osnovi bi ločil tri tabele:
+<<<<<<< HEAD
 * 1.tabela - prikaz podatkov o proizvodnji ter prodaji (stolpci: države, leta, tipi vozil, proizvodnja, prodaja, število vozil v uporabi)
+=======
+* 1. tabela - prikaz podatkov o proizvodnji ter prodaji (stolpci: države, leta, tipi vozil, proizvodnja, prodaja, število vozil v uporabi)
+>>>>>>> 81012a166f5c9d0f4d4b7aee5a1f02b6fc07258c
 * 2.tabela - ekonomski prispevki panoge (stolpci: države, zaposlenost v panogi, investicije, produktivnost)
 * 3.tabela - proizvodnja posameznih podjetij (stolpci: leta, tipi votila, število prodanih vozil)
 
