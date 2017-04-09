@@ -1,11 +1,26 @@
-# Analiza podatkov s programom R, 2016/17
+# Analiza svetovnega avtomobilskega trga
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2016/17
 
 ## Tematika
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal. Tukaj boste
-napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Za predmet analize sem si izbral svetovni avtomobilski trg. S pridobljenimi podatki iz spleta bom analiziral trg iz različnih vidikov kot so svetovna proizvodnja in prodaja, proizvodnja avtomobilov posameznih podjetij, gospodarski prispevki panoge ter število vozil v uporabi. 
+
+Podatke bom v največji meri pridobil iz spletnega portala organizacije proizvajalcev motornih vozil OICA (Organisation Internationale des Constructeurs d'Automobiles) ter Wikipedije. Podatki na spletnem mestu OICA so na voljo v formatu xls, iz Wikipedije pa jih bom pridobil z metodo data scrapping. 
+
+Povezave so podatkovnih virov:
+* Spletni portal OICA (http://www.oica.net)
+* Wikipedija (https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015)
+
+Podatke nameravam predstaviti z različnimi tabelami ter s pomočjo ostalih aplikacij. V osnovi bi ločil tri tabele:
+* 1.tabela - prikaz podatkov o proizvodnji ter prodaji (stolpci: države, leta, tipi vozil, proizvodnja, prodaja, število vozil v uporabi)
+* 2.tabela - ekonomski prispevki panoge (stolpci: države, zaposlenost v panogi, investicije, produktivnost)
+* 3.tabela - proizvodnja posameznih podjetij (stolpci: leta, tipi votila, število prodanih vozil)
+
+Pri analizi podatkov se bom osredotočil na gibanje količin skozi čas, primerajvo med državami in povezave med posameznimi kategorijami.
+
+
+
 
 ## Program
 
