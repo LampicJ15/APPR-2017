@@ -12,12 +12,14 @@ Povezave do podatkovnih virov:
 * Spletni portal OICA (http://www.oica.net)
 * Wikipedija (https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015)
 
-Podatke nameravam predstaviti z različnimi tabelami ter s pomočjo ostalih aplikacij. V osnovi bi ločil tri tabele:
-* prva tabela - prikaz podatkov o proizvodnji ter prodaji (stolpci: države, leta, tipi vozil, proizvodnja, prodaja, število vozil v uporabi)
-* druga tabela - ekonomski prispevki panoge (stolpci: države, zaposlenost v panogi, investicije, produktivnost)
-* tretja tabela - proizvodnja posameznih podjetij (stolpci: leta, tipi votila, število prodanih vozil)
+Zasnova podatkovnega modela:
+* prva tabela - prikaz podatkov o proizvodnji avtomobilov (stolpci: države, leta, tip vozila, proizvodnja avtomobilov)
+* druga tabela - prikaz podatkov o prodaji avtomobilov (stolpci: države, leta, tipa vozila, prodaja avtomobilov)
+* tretja tabela - prikaz podatkov o številu avtomobilov v uporabi (stolpci: države, leta, tip vozila, avtomobili v uporabi)
+* četrta tabela - ekonomski prispevki panoge (stolpci: države, ekonomski prispevek - zaposlenost v panogi, investicije, prihodki)
+* peta tabela - proizvodnja posameznih proizvajalcev  (stolpci:proizvajalec, leto, tip vozila, število proizvedenih avtomobilov)
 
-Pri analizi podatkov se bom osredotočil na gibanje količin skozi čas, primerajvo med državami in povezave med posameznimi kategorijami.
+Pri analizi podatkov se bom osredotočil na gibanje količin skozi čas, primerajvo med državami ter proizvajalci in pa povezave med posameznimi kategorijami.
 
 
 ## Program
