@@ -36,12 +36,12 @@ S spletnega naslova [OICA/SALES](http://www.oica.net/category/sales-statistics/)
 Podatki so bili v obliki EXCEL (.xlsx). Obe tabeli sem uredil v normalizirano obliko ter ju združil.
 
 Stolpci v tabeli:
-*Country - država (imenska spremenljivka)
-*Type - tip vozila (imenska spremenljivka)
-+PC - passenger car (osebni avtomobil)
-+CV - commercial vehicle (komercialno vozilo)
-*Year - leto (številska spremenljivka)
-*Number - število prodanih avtomobilov (številska spremenljivka)
+1. Country - država (imenska spremenljivka)
+2. Type - tip vozila (imenska spremenljivka)
+  + PC - passenger car (osebni avtomobil)
+  + CV - commercial vehicle (komercialno vozilo)
+3. Year - leto (številska spremenljivka)
+4. Number - število prodanih avtomobilov (številska spremenljivka)
 
 Iz spletnega mesta [OICA/USE](http://www.oica.net/category/vehicles-in-use/) sem uvozil tabeli o uporabi osebnih ter komercialnih vozil po državah v letih od 2005 do 2014.
 Podatki so bili v obliki EXCEL (.xlsx).
@@ -51,22 +51,22 @@ Stolpci v tabeli so enaki kot pri zgornji (tabela o prodaji)
 Podatke o proizvodnji avtomobilov po državah sem prav tako prenesel iz [OICA/PRODUCTION](http://www.oica.net/category/production-statistics/).Podatki so bili v večji meri v obliki PDF zato sem jih za nadalnje delo pretvoril v EXCEL. Podatke sem najprej uredil v štiri tabele. Tabele vsebujejo podatke o proizvodnji določenega tipa avtomobilov v letih od 2005 do 2015. na koncu sem tabele združil.
 
 Stolpci v tabeli:
-*Country - država (imenska spremenljivka)
-*Type - tip vozila (imenska spremenljivka)
-+PC - passenger car (osebni avtomobil)
-+CV - commercial vehicle (komercialno vozilo)
-+HT - heavy trucks (tovornjaki)
-+BC - buses and coaches (avtobusi)
-*Year - leto (številska spremenljivka)
-*Number - število prodanih avtomobilov (številska spremenljivka)
+1. Country - država (imenska spremenljivka)
+2. Type - tip vozila (imenska spremenljivka)
+  + PC - passenger car (osebni avtomobil)
+  + CV - commercial vehicle (komercialno vozilo)
+  + HT - heavy trucks (tovornjaki)
+  + BC - buses and coaches (avtobusi)
+3. Year - leto (številska spremenljivka)
+4. Number - število prodanih avtomobilov (številska spremenljivka)
 
 Podatke o proizvodnji avtomobilov glede na proizvajalca pa sem uvozil iz [WIKI/PRODUCTION](https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015). Te podatki so bili v obliki HTML.
 
 Stolpci v tabeli:
-*Group - podjetje oz. proizvajalec (imenska spremenljivka)
-*Country - država (imenska spremnljivka)
-*Year - leto (številska spremenljivka)
-*Number - število proizvedenih avtomobilov (številska spremenljivka)
+1. Group - podjetje oz. proizvajalec (imenska spremenljivka)
+2. Country - država (imenska spremnljivka)
+3. Year - leto (številska spremenljivka)
+4. Number - število proizvedenih avtomobilov (številska spremenljivka)
 
 
 
