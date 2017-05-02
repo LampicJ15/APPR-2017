@@ -21,7 +21,8 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+Za temo anlize sem si izbral svetovni avtomobilski trg. Ideja projekta je primerjava in razvrstitev držav glede na proizvodnjo in prodajo določenega tipa avtomobilov. 
+Prav tako pa tudi primerjava med posameznimi podjetij glede na število prodanih avtomobilov.
 
 ***
 
@@ -31,8 +32,46 @@ Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Poglejmo si začetka obeh uvoženih razpredelnic.
+S spletnega naslova [linked phrase](http://www.oica.net/category/sales-statistics/) sem uvozil tabeli o prodanih osebnih avtomobilih ter komercialnih vozilih po državah v letih od 2005 do 2016. 
+Podatki so bili v obliki EXCEL (.xlsx). Obe tabeli sem uredil v normalizirano obliko ter ju združil.
+
+Stolpci v tabeli:
+*Country - država (imenska spremenljivka)
+*Type - tip vozila (imenska spremenljivka)
++PC - passenger car (osebni avtomobil)
++CV - commercial vehicle (komercialno vozilo)
+*Year - leto (številska spremenljivka)
+*Number - število prodanih avtomobilov (številska spremenljivka)
+
+Iz spletnega mesta [linked phrase](http://www.oica.net/category/vehicles-in-use/) sem uvozil tabeli o uporabi osebnih ter komercialnih vozil po državah v letih od 2005 do 2014.
+Podatki so bili v obliki EXCEL (.xlsx).
+
+Stolpci v tabeli so enaki kot pri zgornji (tabela o prodaji)
+
+Podatke o proizvodnji avtomobilov po državah sem prav tako prenesel iz [linked phrase](http://www.oica.net/category/production-statistics/).Podatki so bili v večji meri v obliki PDF zato sem jih za nadalnje delo pretvoril v EXCEL. Podatke sem najprej uredil v štiri tabele. Tabele vsebujejo podatke o proizvodnji določenega tipa avtomobilov v letih od 2005 do 2015. na koncu sem tabele združil.
+
+Stolpci v tabeli:
+*Country - država (imenska spremenljivka)
+*Type - tip vozila (imenska spremenljivka)
++PC - passenger car (osebni avtomobil)
++CV - commercial vehicle (komercialno vozilo)
++HT - heavy trucks (tovornjaki)
++BC - buses and coaches (avtobusi)
+*Year - leto (številska spremenljivka)
+*Number - število prodanih avtomobilov (številska spremenljivka)
+
+Podatke o proizvodnji avtomobilov glede na proizvajalca pa sem uvozil iz [linked phrase](https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015). Te podatki so bili v obliki HTML.
+
+Stolpci v tabeli:
+*Group - podjetje oz. proizvajalec (imenska spremenljivka)
+*Country - država (imenska spremnljivka)
+*Year - leto (številska spremenljivka)
+*Number - število proizvedenih avtomobilov (številska spremenljivka)
+
+
+
+
+
 
 ```{r razpredelnice}
 kable(head(druzine))
