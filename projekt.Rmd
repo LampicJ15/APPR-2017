@@ -38,8 +38,8 @@ Podatki so bili v obliki EXCEL (.xlsx). Obe tabeli sem uredil v normalizirano ob
 Stolpci v tabeli:
 1. Country - država (imenska spremenljivka)
 2. Type - tip vozila (imenska spremenljivka)
-  + PC - passenger car (osebni avtomobil)
-  + CV - commercial vehicle (komercialno vozilo)
+    + CV - commercial vehicle (komercialno vozilo)
+    + PC - passenger car (osebni avtomobil)
 3. Year - leto (številska spremenljivka)
 4. Number - število prodanih avtomobilov (številska spremenljivka)
 
@@ -53,10 +53,10 @@ Podatke o proizvodnji avtomobilov po državah sem prav tako prenesel iz [OICA/PR
 Stolpci v tabeli:
 1. Country - država (imenska spremenljivka)
 2. Type - tip vozila (imenska spremenljivka)
-  + PC - passenger car (osebni avtomobil)
-  + CV - commercial vehicle (komercialno vozilo)
-  + HT - heavy trucks (tovornjaki)
-  + BC - buses and coaches (avtobusi)
+    + PC - passenger car (osebni avtomobil)
+    + CV - commercial vehicle (komercialno vozilo)
+    + HT - heavy trucks (tovornjaki)
+    + BC - buses and coaches (avtobusi)
 3. Year - leto (številska spremenljivka)
 4. Number - število prodanih avtomobilov (številska spremenljivka)
 
