@@ -8,8 +8,9 @@ library(readr)
 
 #naredimo funkcijo za urejanje podatkov o proizvodnji
 
-uredi.pro <- function(neurejena, leto, tip){
-  nova_datoteka <-read_excel(neurejena, skip = 13, col_names = FALSE, na = "NA")
+uredi.pro <- function(neurejena, leto, tip){ #vhodni podatki: neurejena npr. production-bc/production-bc-2013.xls
+  pot = paste("podatki/neurejeni",neurejena, sep="/")
+  nova_datoteka <-read_excel(pot, skip = 13, col_names = FALSE, na = "NA")
   
   #Izbrišemo 2. in 4. stolpec
   nova_datoteka[c(2,4)] <- NULL
@@ -43,74 +44,74 @@ uredi.pro <- function(neurejena, leto, tip){
 
 #določimo direktorij, kjer se nahajajo podatki o proizvodnji avtobusov
 
-setwd("podatki/neurejeni/production-bc")
+
 #vse datoteke uredi in jih zdruzi
 
-productionBC <- list.files(getwd())
+productionBC <- list.files("podatki/neurejeni/production-bc",pattern = ".*\\.xls") #datoteke iz danega direktorija
 
 leto <- 2005
 
 for (i in c(1:length(productionBC)) ){
   if (i > 1){
-    urejena <- uredi.pro(productionBC[i], leto,"BC")
+    pot <- paste("production-bc",productionBC[i],sep="/") #združi string
+    urejena <- uredi.pro(pot, leto,"BC")
     datoteka <- rbind(datoteka, urejena)
     leto <- leto + 1
   }
   else{
-    datoteka <- uredi.pro(productionBC[i], leto,"BC")
+    pot <- paste("production-bc",productionBC[i],sep="/")
+    datoteka <- uredi.pro(pot, leto,"BC")
     leto <- leto + 1
   }
 }
 
 prodBC <- datoteka
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Treba je še urediti imena držav in izbrisati nedržave !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-#zapišimo urejeno datoteko
-write.csv2(datoteka, "proizvodnjaBC.csv",row.names = FALSE)
+
+
 
 ##ureditev podatkov o proizvodnji komercialnih vozil (CV - commercial vehicles)
 
-#Določimo direktorij kjer se nahajajo podatki o proizvodnji komercialnih vozil
-setwd("C:/Users/Uporabnik/Dropbox/Faks/R Studio/APPR-2017/podatki/neurejeni/production-cv")
-
 #vse datoteke uredi in jih zdruzi
-productionCV <- list.files(getwd())
+productionCV <- list.files("podatki/neurejeni/production-cv",pattern = ".*\\.xls") #pobere samo file s končnico xls(x)
 
 leto <- 2005
 
 for (i in c(1:length(productionCV)) ){
   if (i > 1){
-    urejena <- uredi.pro(productionCV[i], leto,"CV")
+    pot <- paste("production-cv",productionCV[i],sep="/")
+    urejena <- uredi.pro(pot, leto,"CV")
     datoteka <- rbind(datoteka, urejena)
     leto <- leto + 1
   }
   else{
-    datoteka <- uredi.pro(productionCV[i], leto,"CV")
+    pot <- paste("production-cv",productionCV[i],sep="/")
+    datoteka <- uredi.pro(pot, leto,"CV")
     leto <- leto + 1
   }
 }
 
-prodCV <-datoteka
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Treba je še urediti imena držav in izbrisati nedržave !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+prodCV <- datoteka
 
 ##ureditev podatkov o proizvodnji tovornjakov (HT - heavy trucks)
 
 #Določitev direktorija kjer so podatki o proizvodnji tovornjakov
-setwd("C:/Users/Uporabnik/Dropbox/Faks/R Studio/APPR-2017/podatki/neurejeni/production-ht")
 
 #vse datoteke uredi in jih zdruzi
-productionHT <- list.files(getwd())
+productionHT <- list.files("podatki/neurejeni/production-ht",pattern = ".*\\.xls") #pobere samo file s končnico xls(x)
 
 leto <- 2005
 
 for (i in c(1:length(productionHT)) ){
   if (i > 1){
-    urejena <- uredi.pro(productionHT[i], leto,"HT")
+    pot <- paste("production-ht",productionHT[i],sep="/")
+    urejena <- uredi.pro(pot, leto,"HT")
     datoteka <- rbind(datoteka, urejena)
     leto <- leto + 1
   }
   else{
-    datoteka <- uredi.pro(productionHT[i], leto,"HT")
+    pot <- paste("production-ht",productionHT[i],sep="/")
+    datoteka <- uredi.pro(pot, leto,"HT")
     leto <- leto + 1
   }
 }
@@ -120,22 +121,22 @@ prodHT <- datoteka
 
 ##ureditev podatkov o proizvodnji osebnih avtomobilov (PC - passanger car)
 
-#Določitev direktorija kjer se nahajajo podatki o proizvodnji osebnih avtomobilov
-setwd("C:/Users/Uporabnik/Dropbox/Faks/R Studio/APPR-2017/neurejeni/production-pc")
 
 #vse datoteke uredi in jih zdruzi
-productionPC <- list.files(getwd())
+productionPC<- list.files("podatki/neurejeni/production-pc",pattern = ".*\\.xls") #pobere samo file s končnico xls(x)
 
 leto <- 2005
 
 for (i in c(1:length(productionPC)) ){
   if (i > 1){
-    urejena <- uredi.pro(productionPC[i], leto,"PC")
+    pot <- paste("production-pc",productionPC[i],sep="/")
+    urejena <- uredi.pro(pot, leto,"PC")
     datoteka <- rbind(datoteka, urejena)
     leto <- leto + 1
   }
   else{
-    datoteka <- uredi.pro(productionPC[i], leto,"PC")
+    pot <- paste("production-pc",productionPC[i],sep="/")
+    datoteka <- uredi.pro(pot, leto,"PC")
     leto <- leto + 1
   }
 }
@@ -145,8 +146,10 @@ prodPC <- datoteka
 #zdruzimo vse urejene tabele
 proizvodnja <- rbind(prodPC,prodHT,prodCV,prodBC)
 
+#uredimo tabelo proizvodnja
+
+
+
+
 #zapišimo dobljeno datoteko
-
-setwd("C:/Users/Uporabnik/Dropbox/Faks/R Studio/APPR-2017/podatki/urejeni")
-
-write.csv2(proizvodnja,"proizvodnja.csv",row.names = FALSE)
+#write.csv2(proizvodnja,"podatki/urejeni/proizvodnja.csv",row.names = FALSE)
