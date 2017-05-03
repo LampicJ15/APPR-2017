@@ -146,7 +146,36 @@ prodPC <- datoteka
 #zdruzimo vse urejene tabele
 proizvodnja <- rbind(prodPC,prodHT,prodCV,prodBC)
 
+##########################################################################################################
+
 #uredimo tabelo proizvodnja
+
+#počistimo prvi stolpec Country
+
+#zbrišimo vse vrstice, ki se začnejo s pomišljajem
+#da ne bi zbrisali -TURKEY najprej popravimo ta imena
+proizvodnja$Country[grep("- TURKEY",proizvodnja$Country)]<- "TURKEY"
+
+proizvodnja <- proizvodnja[-grep("^-.*",proizvodnja$Country),]
+
+#enako naredimo za vrstice, ki imajo pod državo AFRICA, Double..,AMERICA, ASIA-OCEANIA, TOTAL,CIS
+
+proizvodnja <- proizvodnja[-grep("^AFRICA",proizvodnja$Country),]
+proizvodnja <- proizvodnja[-grep("^Double",proizvodnja$Country),]
+proizvodnja <- proizvodnja[-grep("^AMERICA",proizvodnja$Country),]
+proizvodnja <- proizvodnja[-grep("^ASIA-OCEANIA",proizvodnja$Country),]
+proizvodnja <- proizvodnja[-grep("^TOTAL",proizvodnja$Country),]
+proizvodnja <- proizvodnja[-grep("^CIS",proizvodnja$Country),]
+
+#popraviti je treba še imena držav, ki so oblike npr. SWEDEN (4)
+
+#določimo mesta na katerih se nahajajo
+grep(".*\\([1-5]\\)",proizvodnja$Country)
+
+
+
+
+
 
 
 
