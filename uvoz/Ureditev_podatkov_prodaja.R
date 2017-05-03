@@ -1,7 +1,5 @@
 ##Ureditev podatkov o prodaji osebnih avtomobilov leto 2005-2016 (ProdajaOA - prodaja osebnih avtomobilov)
 
-
-
 #paket read.xl
 library(readxl)
 library(readr)

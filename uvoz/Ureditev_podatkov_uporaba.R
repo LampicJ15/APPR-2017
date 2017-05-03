@@ -1,12 +1,10 @@
 ##Ureditev podatkov o uporabni osebnih avtomobilov (uporabaOA)
 
-setwd("C:/Users/Uporabnik/Dropbox/Faks/R Studio/APPR-2017/podatki/neurejeni")
-
 #paket read.xl
 library(readxl)
 library(readr)
 
-uporabaOA<- read_excel("pc-inuse.xlsx",skip = 10,col_names = FALSE, na = "NA") #shranimo podatke tabele 
+uporabaOA<- read_excel("podatki/neurejeni/pc-inuse.xlsx",skip = 10,col_names = FALSE, na = "NA") #shranimo podatke tabele 
 
 #zbrisemo 2., 3. in 4. stolpec
 uporabaOA[2:4] <- NULL
@@ -41,7 +39,7 @@ uporabaOA$Number <- 1000*uporabaOA$Number
 
 ##Ureditev podatkov o uporabi komercianlih avtomobilov (uporabaKA)
 
-uporabaKA<- read_excel("cv-inuse.xlsx",skip = 10,col_names = FALSE, na = "NA") #shranimo podatke tabele 
+uporabaKA<- read_excel("podatki/neurejeni/cv-inuse.xlsx",skip = 10,col_names = FALSE, na = "NA") #shranimo podatke tabele 
 
 #zbrisemo 2., 3. in 4. stolpec
 uporabaKA[2:4] <- NULL
@@ -76,4 +74,4 @@ uporabaKA$Number <- 1000*uporabaKA$Number
 #združimo tabeli
 uporaba <- rbind(uporabaKA, uporabaOA)
 #zapišimo datoteko
-write.csv2(uporaba, "uporaba.csv",row.names = FALSE)
+write.csv2(uporaba, "podatki/urejeni/uporaba.csv",row.names = FALSE)
