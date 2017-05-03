@@ -29,8 +29,10 @@ Prav tako pa tudi primerjava med posameznimi podjetij glede na število prodanih
 # Obdelava, uvoz in čiščenje podatkov
 
 ```{r uvoz, echo=FALSE, message=FALSE}
-source("uvoz/uvoz.r", encoding = "UTF-8")
+source("uvoz/Ureditev_podatkov_prodaja.R", encoding = "UTF-8")
+
 ```
+
 
 S spletnega naslova [OICA/SALES](http://www.oica.net/category/sales-statistics/) sem uvozil tabeli o prodanih osebnih avtomobilih ter komercialnih vozilih po državah v letih od 2005 do 2016. 
 Podatki so bili v obliki EXCEL (.xlsx). Obe tabeli sem uredil v normalizirano obliko ter ju združil.

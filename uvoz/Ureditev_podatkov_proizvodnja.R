@@ -43,7 +43,7 @@ uredi.pro <- function(neurejena, leto, tip){
 
 #določimo direktorij, kjer se nahajajo podatki o proizvodnji avtobusov
 
-setwd("C:/Users/Uporabnik/Dropbox/Faks/R Studio/APPR-2017/podatki/neurejeni/production-bc")
+setwd("podatki/neurejeni/production-bc")
 #vse datoteke uredi in jih zdruzi
 
 productionBC <- list.files(getwd())
@@ -121,7 +121,7 @@ prodHT <- datoteka
 ##ureditev podatkov o proizvodnji osebnih avtomobilov (PC - passanger car)
 
 #Določitev direktorija kjer se nahajajo podatki o proizvodnji osebnih avtomobilov
-setwd("C:/Users/Uporabnik/Dropbox/Faks/R Studio/APPR-2017/podatki/neurejeni/production-pc")
+setwd("C:/Users/Uporabnik/Dropbox/Faks/R Studio/APPR-2017/neurejeni/production-pc")
 
 #vse datoteke uredi in jih zdruzi
 productionPC <- list.files(getwd())

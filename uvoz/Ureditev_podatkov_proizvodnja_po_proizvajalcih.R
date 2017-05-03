@@ -8,95 +8,84 @@ library(dplyr)
 link <- "https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015"
 stran <- html_session(link) %>% read_html()
 
-pro2015 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[1]] %>% html_table(dec = ",")
-
-pro2015 <- pro2015[c(2,3,4)]
-colnames(pro2015) <- c("Group","Country","Number")
-pro2015$Year <- rep(2015, length(pro2015[[1]]))
-pro2015 <- pro2015[c(1,4,2,3)]
-
-
-pro2014 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[2]] %>% html_table(dec = ",")
-pro2014 <- pro2014[c(2,3,4)]
-colnames(pro2014) <- c("Group","Country","Number")
-pro2014$Year <- rep(2014, length(pro2014[[1]]))
-pro2014 <- pro2014[c(1,4,2,3)]
+#tabele v letih od 2015 do 2012, od 2008 do 2004 (ta leta so psebej ker je class=wikitable sortable)
+data1 <- list()
+for (i in 1:9){
+  data1[[i]]<- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
+    .[[i]] %>% html_table(dec = ",")
+}
 
 
-pro2013 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[3]] %>% html_table(dec = ",")
-pro2013 <- pro2013[c(2,3,4)]
-colnames(pro2013) <- c("Group","Country","Number")
-pro2013$Year <- rep(2013, length(pro2013[[1]]))
-pro2013 <- pro2013[c(1,4,2,3)]
 
+#uredimo tabele in jih zlozimo skupaj
 
-pro2012 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[4]] %>% html_table(dec = ",")
-pro2012 <- pro2012[c(2,3,4)]
-colnames(pro2012) <- c("Group","Country","Number")
-pro2012$Year <- rep(2012, length(pro2012[[1]]))
-pro2012 <- pro2012[c(1,4,2,3)]
+leta <- c(2015:2012,2008:2004)
 
-
-pro2008 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[5]] %>% html_table(dec = ",")
-pro2008 <- pro2008[c(2,3,4)]
-colnames(pro2008) <- c("Group","Country","Number")
-pro2008$Year <- rep(2008, length(pro2008[[1]]))
-pro2008 <- pro2008[c(1,4,2,3)]
-
-
-pro2007 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[6]] %>% html_table(dec = ",")
-pro2007 <- pro2007[c(2,3,4)]
-colnames(pro2007) <- c("Group","Country","Number")
-pro2007$Year <- rep(2007, length(pro2007[[1]]))
-pro2007 <- pro2007[c(1,4,2,3)]
-
-
-pro2006 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[7]] %>% html_table(dec = ",")
-pro2006 <- pro2006[c(2,3,4)]
-colnames(pro2006) <- c("Group","Country","Number")
-pro2006$Year <- rep(2006, length(pro2006[[1]]))
-pro2006 <- pro2006[c(1,4,2,3)]
-
-
-pro2005 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[8]] %>% html_table(dec = ",")
-pro2005 <- pro2005[c(2,3,4)]
-colnames(pro2006) <- c("Group","Country","Number")
-pro2005$Year <- rep(2005, length(pro2005[[1]]))
-pro2005 <- pro2005[c(1,4,2,3)]
-
-pro2004 <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[9]] %>% html_table(dec = ",")
-pro2004 <- pro2004[c(2,3,4)]
-colnames(pro2004) <- c("Group","Country","Number")
-pro2004$Year <- rep(2004, length(pro2004[[1]]))
-pro2004 <- pro2004[c(1,4,2,3)]
+for (i in 1:9){
+  if (i == 1){
+    tabela <- data1[[i]]
+    tabela <- tabela[c(2,3,4)] #izbrišemo prvi stolpec
+    colnames(tabela) <- c("Group","Country","Number") #dodamo imena stolpcev
+    tabela$Year <- rep(leta[i], length(tabela[[1]])) #dodamo stolpec z leti
+    tabela <- tabela[c(1,4,2,3)] #spremenimo vrstni red
+    urejena <- tabela
+  }
+  else{
+    tabela <- data1[[i]]
+    tabela <- tabela[c(2,3,4)] #izbrišemo prvi stolpec
+    colnames(tabela) <- c("Group","Country","Number") #dodamo imena stolpcev
+    tabela$Year <- rep(leta[i], length(tabela[[1]])) #dodamo stolpec z leti
+    tabela <- tabela[c(1,4,2,3)] #spremenimo vrstni red
+    urejena <- rbind(urejena, tabela)
+  }
+    
+}
 
 #########################################################################################
 
+#tabele v letih od 2011 do 2009(ta leta so psebej ker je class=toccolours nowraplinks)
+data2 <- list()
 
-pro2011 <- stran %>% html_nodes(xpath="//table[@class='toccolours nowraplinks']") %>%
-  .[[1]] %>% html_table(dec = ",",fill=TRUE)
+for (i in 1:3){
+  data2[[i]] <- stran %>% html_nodes(xpath="//table[@class='toccolours nowraplinks']") %>%
+    .[[i]] %>% html_table(dec = ",",fill=TRUE)
+}
 
+#uredimo podatke za leto 2011
+pro2011 <- data2[[1]]
 pro2011 <- pro2011[c(1,length(pro2011)-5)]
+pro2011 <- pro2011[-c(1:3,31:33),] # zbrišemo prve 3 in zadnje 3 vrstice
+colnames(pro2011) <- c("Group","Number") #imena stolpcev
+pro2011$Year <- rep(2011, length(pro2011[[1]])) #dodamo stolpec Year
 
-
-pro2010 <- stran %>% html_nodes(xpath="//table[@class='toccolours nowraplinks']") %>%
-  .[[2]] %>% html_table(dec = ",",fill=TRUE)
-
+#uredimo podatke za leto 2010
+pro2010 <- data2[[2]]
 pro2010 <- pro2010[c(1,length(pro2010)-5)]
+pro2010 <- pro2010[-c(1:3,41:44),] # zbrišemo prve 3 in zadnje 4 vrstice
+colnames(pro2010) <- c("Group","Number") #imena stolpcev
+pro2010$Year <- rep(2010, length(pro2010[[1]])) #dodamo stolpec Year
 
-pro2009 <- stran %>% html_nodes(xpath="//table[@class='toccolours nowraplinks']") %>%
-  .[[3]] %>% html_table(dec = ",",fill=TRUE)
-
+#uredimo podatke za leto 2009
+pro2009 <- data2[[3]]
 pro2009 <- pro2009[c(1,length(pro2009)-5)]
+pro2009 <- pro2009[-c(1:3,54:56),] # zbrišemo prve 3 in zadnje 3 vrstice
+colnames(pro2009) <- c("Group","Number") #imena stolpcev
+pro2009$Year <- rep(2009, length(pro2009[[1]])) #dodamo stolpec Year
+
+
+#tabela s podatki proizvajalcev in državo proizvajanja
+link2 <- "https://en.wikipedia.org/wiki/Automotive_industry"
+stran2 <- html_session(link2) %>% read_html()
+drzave <- stran2 %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
+  .[[3]] %>% html_table(dec = ",")
+
+drzave <- drzave[c(1,4)]
+colnames(drzave) <- c("Group", "Country")
+
+
+
+
+
 
 
 

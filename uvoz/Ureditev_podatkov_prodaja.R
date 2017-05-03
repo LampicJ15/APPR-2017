@@ -1,12 +1,12 @@
 ##Ureditev podatkov o prodaji osebnih avtomobilov leto 2005-2016 (ProdajaOA - prodaja osebnih avtomobilov)
 
-setwd("C:/Users/Uporabnik/Dropbox/Faks/R Studio/APPR-2017/podatki/neurejeni")
+
 
 #paket read.xl
 library(readxl)
 library(readr)
 
-prodajaOA <- read_excel("pc-sales.xlsx",skip = 10,col_names = FALSE, na = "NA") #shranimo podatke tabele 
+prodajaOA <- read_excel("podatki/neurejeni/pc-sales.xlsx",skip = 10,col_names = FALSE, na = "NA") #shranimo podatke tabele 
 
 #zbrisemo 2., 3. in 4. stolpec
 prodajaOA[2:4] <- NULL
@@ -37,7 +37,7 @@ prodajaOA <- prodajaOA[c(1,4,2,3)] #Country, Type, Year,Number
 prodajaOA$Year <- parse_integer(prodajaOA$Year)
 
 ##Ureditev podatkov o prodaji komercialnih avtomobilov leto 2005-2016 (ProdajaKA - prodaja komercialnih avtomobilov)
-prodajaKA <- read_excel("cv-sales.xlsx",skip = 10,col_names = FALSE, na = "NA") #shranimo podatke tabele 
+prodajaKA <- read_excel("podatki/neurejeni/cv-sales.xlsx",skip = 10,col_names = FALSE, na = "NA") #shranimo podatke tabele 
 
 #zbrisemo 2., 3. in 4. stolpec
 prodajaKA[2:4] <- NULL
@@ -69,5 +69,5 @@ prodajaKA$Year <- parse_integer(prodajaKA$Year)
 prodaja <- rbind(prodajaKA, prodajaOA)
 
 #zapišimo datoteko
-write.csv2(prodaja, "prodaja.csv",row.names = FALSE,)
+write.csv2(prodaja, "podatki/urejeni/prodaja.csv",row.names = FALSE)
 
