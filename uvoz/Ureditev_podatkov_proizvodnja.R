@@ -166,19 +166,23 @@ proizvodnja <- proizvodnja[-grep("^AMERICA",proizvodnja$Country),]
 proizvodnja <- proizvodnja[-grep("^ASIA-OCEANIA",proizvodnja$Country),]
 proizvodnja <- proizvodnja[-grep("^TOTAL",proizvodnja$Country),]
 proizvodnja <- proizvodnja[-grep("^CIS",proizvodnja$Country),]
+proizvodnja <- proizvodnja[-grep("^NAFTA",proizvodnja$Country),]
+
+#Popravki imen
+#UNITED STATE OF AMERICA zamenjati z USA
+proizvodnja$Country[grep("^UNITED STATES OF AMERICA",proizvodnja$Country)] <- "USA"
+
+#popravek pri imenu NETHERLANDS --- AS OF 2013,  HCV AND BC ONCE A YEAR zamenjamo z NETHERLANDS
+proizvodnja$Country[grep("^NET.+ ---",proizvodnja$Country)] <- "NETHERLANDS"
 
 #popraviti je treba še imena držav, ki so oblike npr. SWEDEN (4)
+mesta <- grep(".*\\([1-9] *\\)",proizvodnja$Country) 
+proizvodnja$Country[mesta] <- gsub("([A-Z]+) *(\\(.+)","\\1",proizvodnja$Country[mesta])
 
-#določimo mesta na katerih se nahajajo
-grep(".*\\([1-5]\\)",proizvodnja$Country)
-
-
-
-
-
-
-
-
+#popraviti stolpec Number, ker niso samo številke so tudi nizi (Publication stopped) zamenjamo z 0 !!!!!!!!!(mogoče bi raje zamenjal z NA)
+mesta2 <- grep("^[a-z]",ignore.case = TRUE,proizvodnja$Number) #mesta na ketrih so črke namesto številk
+proizvodnja$Number[mesta2] <- 0
+proizvodnja$Number <- parse_integer(proizvodnja$Number) #Stolpec Number v integer
 
 #zapišimo dobljeno datoteko
-#write.csv2(proizvodnja,"podatki/urejeni/proizvodnja.csv",row.names = FALSE)
+write.csv2(proizvodnja,"podatki/urejeni/proizvodnja.csv",row.names = FALSE)
