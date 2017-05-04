@@ -36,7 +36,8 @@ source("uvoz/Ureditev_podatkov_proizvodnja_po_proizvajalcih.R", encoding = "UTF-
 
 ```
 
-###1.TABELA - prodaja avtomobilov po državah
+1.TABELA - prodaja avtomobilov po državah
+
 S spletnega naslova [OICA/SALES](http://www.oica.net/category/sales-statistics/) sem uvozil tabeli o prodanih osebnih avtomobilih ter komercialnih vozilih po državah v letih od 2005 do 2016. 
 Podatki so bili v obliki EXCEL (.xlsx). 
 Obe tabeli sem uredil v normalizirano obliko ter ju združil.
@@ -52,7 +53,8 @@ Stolpci v tabeli:
 head(prodaja)
 ```
 
-###2.TABELA - uporaba avtomobilov po državah
+2.TABELA - uporaba avtomobilov po državah
+
 Iz spletnega mesta [OICA/USE](http://www.oica.net/category/vehicles-in-use/) sem uvozil tabeli o uporabi osebnih ter komercialnih vozil po državah v letih od 2005 do 2014.
 Podatki so bili v obliki EXCEL (.xlsx). Stolpci v tabeli so enaki kot pri zgornji.
 
@@ -60,7 +62,8 @@ Podatki so bili v obliki EXCEL (.xlsx). Stolpci v tabeli so enaki kot pri zgornj
 kable(head(uporaba))
 ```
 
-###3.TABELA - proizvodnja avtomobilov po državah
+3.TABELA - proizvodnja avtomobilov po državah
+
 Podatke o proizvodnji avtomobilov po državah sem prav tako prenesel iz [OICA/PRODUCTION](http://www.oica.net/category/production-statistics/).Podatki so bili v večji meri v obliki PDF zato sem jih za nadalnje delo pretvoril v EXCEL. Podatke sem najprej uredil v štiri tabele (4 kategorije vozil), kjer vsaka vsebuje podatke o proizvodnji od leta 2004 do 2015. Te sem nato združil v skupno tabelo, pri kateri sem z regularnimi izrazi popravil še  napake v stolpcu Country. 
 
 Stolpci v tabeli:
@@ -77,7 +80,8 @@ Stolpci v tabeli:
 kable(head(proizvodnja))
 ```
 
-###4.TABELA - proizvodnja avtomobilov posameznih proizvajalcev
+4.TABELA - proizvodnja avtomobilov posameznih proizvajalcev
+
 Podatke o proizvodnji avtomobilov glede na proizvajalca pa sem uvozil iz [WIKI/PRODUCTION](https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015). Te podatki so bili v obliki HTML. Tabele sem uvozil s pomočjo knjižnice `rvest`, jih pretvoril v standardno obliko ter jih uredil z regularnimi izrazi.
 
 Stolpci v tabeli:
