@@ -21,8 +21,8 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Za temo anlize sem si izbral svetovni avtomobilski trg. Ideja projekta je primerjava in razvrstitev držav glede na proizvodnjo in prodajo določenega tipa avtomobilov. 
-Prav tako pa tudi primerjava med posameznimi podjetij glede na število prodanih avtomobilov.
+Za temo anlize sem si izbral svetovni avtomobilski trg. Cilj projekta je primerjava in razvrstitev držav glede na proizvodnjo, prodajo in uporabo določenega tipa avtomobilov, poiskati povezave med danimi količinami z razvitostjo držav (BDP) ter gospodarski vpliv avtomobilskega trga.
+Primerjal pa bom tudi posamezna podjetja glede na njihovo proizvodnjo.
 
 ***
 
@@ -30,12 +30,16 @@ Prav tako pa tudi primerjava med posameznimi podjetij glede na število prodanih
 
 ```{r uvoz, echo=FALSE, message=FALSE}
 source("uvoz/Ureditev_podatkov_prodaja.R", encoding = "UTF-8")
+source("uvoz/Ureditev_podatkov_proizvodnja.R", encoding = "UTF-8")
+source("uvoz/Ureditev_podatkov_uporaba.R", encoding = "UTF-8")
+source("uvoz/Ureditev_podatkov_proizvodnja_po_proizvajalcih.R", encoding = "UTF-8")
 
 ```
 
-
+###1.TABELA - prodaja avtomobilov po državah
 S spletnega naslova [OICA/SALES](http://www.oica.net/category/sales-statistics/) sem uvozil tabeli o prodanih osebnih avtomobilih ter komercialnih vozilih po državah v letih od 2005 do 2016. 
-Podatki so bili v obliki EXCEL (.xlsx). Obe tabeli sem uredil v normalizirano obliko ter ju združil.
+Podatki so bili v obliki EXCEL (.xlsx). 
+Obe tabeli sem uredil v normalizirano obliko ter ju združil.
 
 Stolpci v tabeli:
 1. Country - država (imenska spremenljivka)
@@ -44,10 +48,20 @@ Stolpci v tabeli:
     + CV - commercial vehicle (komercialno vozilo)
 4. Number - število prodanih avtomobilov (številska spremenljivka)
 
+```
+head(prodaja)
+```
+
+###2.TABELA - uporaba avtomobilov po državah
 Iz spletnega mesta [OICA/USE](http://www.oica.net/category/vehicles-in-use/) sem uvozil tabeli o uporabi osebnih ter komercialnih vozil po državah v letih od 2005 do 2014.
 Podatki so bili v obliki EXCEL (.xlsx). Stolpci v tabeli so enaki kot pri zgornji.
 
-Podatke o proizvodnji avtomobilov po državah sem prav tako prenesel iz [OICA/PRODUCTION](http://www.oica.net/category/production-statistics/).Podatki so bili v večji meri v obliki PDF zato sem jih za nadalnje delo pretvoril v EXCEL. Podatke sem najprej uredil v štiri tabele. Tabele vsebujejo podatke o proizvodnji določenega tipa avtomobilov v letih od 2005 do 2015. na koncu sem tabele združil.
+```
+kable(head(uporaba))
+```
+
+###3.TABELA - proizvodnja avtomobilov po državah
+Podatke o proizvodnji avtomobilov po državah sem prav tako prenesel iz [OICA/PRODUCTION](http://www.oica.net/category/production-statistics/).Podatki so bili v večji meri v obliki PDF zato sem jih za nadalnje delo pretvoril v EXCEL. Podatke sem najprej uredil v štiri tabele (4 kategorije vozil), kjer vsaka vsebuje podatke o proizvodnji od leta 2004 do 2015. Te sem nato združil v skupno tabelo, pri kateri sem z regularnimi izrazi popravil še  napake v stolpcu Country. 
 
 Stolpci v tabeli:
 1. Country - država (imenska spremenljivka)
@@ -59,8 +73,12 @@ Stolpci v tabeli:
 3. Year - leto (števislka spremenljivka)
 4. Number - število prodanih avtomobilov (številska spremenljivka)
 
+```
+kable(head(proizvodnja))
+```
 
-Podatke o proizvodnji avtomobilov glede na proizvajalca pa sem uvozil iz [WIKI/PRODUCTION](https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015). Te podatki so bili v obliki HTML.
+###4.TABELA - proizvodnja avtomobilov posameznih proizvajalcev
+Podatke o proizvodnji avtomobilov glede na proizvajalca pa sem uvozil iz [WIKI/PRODUCTION](https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015). Te podatki so bili v obliki HTML. Tabele sem uvozil s pomočjo knjižnice `rvest`, jih pretvoril v standardno obliko ter jih uredil z regularnimi izrazi.
 
 Stolpci v tabeli:
 1. Group - podjetje oz. proizvajalec (imenska spremenljivka)
@@ -68,43 +86,16 @@ Stolpci v tabeli:
 3. Year - leto (številska spremenljivka)
 4. Number - število proizvedenih avtomobilov (številska spremenljivka)
 
+```
+kable(head(proizvajalci))
+```
+
+
 # Analiza in vizualizacija podatkov
 
-```{r vizualizacija, echo=FALSE, message=FALSE}
-source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
-```
 
-Slika \ref{fig:zemljevid} prikazuje povprečno velikost družine za vsako občino.
-
-```{r zemljevid, echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-ggplot() + geom_polygon(data = left_join(zemljevid, povprecja, by = c("OB_UIME" = "obcina")),
-                        aes(x = long, y = lat, group = group, fill = povprecje)) +
-  ggtitle("Povprečno število otrok v družini") + xlab("") + ylab("") +
-  guides(fill = guide_colorbar(title = "Povprečje"))
-```
-
-***
 
 # Napredna analiza podatkov
 
-```{r analiza, echo=FALSE, message=FALSE}
-source("analiza/analiza.r", encoding = "UTF-8")
-```
 
-Slika \ref{fig:graf} prikazuje povezavo med številom naselij in površino občine.
 
-```{r graf, echo=FALSE, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina = names(skupine),
-                                     skupina = factor(skupine)), by = "obcina")
-, aes(x = povrsina, y = naselja, color = skupina, size = prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color = guide_legend(title = "Skupina"),
-         size = guide_legend(title = "Prebivalci (* 1000)"))
-```
-
-***
-
-```{r shiny, echo = FALSE}
-shinyAppDir("shiny", options=list(width="100%", height=600))
-```
