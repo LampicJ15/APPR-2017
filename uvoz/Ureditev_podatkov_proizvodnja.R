@@ -10,6 +10,7 @@ library(readr)
 
 uredi.pro <- function(neurejena, leto, tip){ #vhodni podatki: neurejena npr. production-bc/production-bc-2013.xls
   pot = paste("podatki/neurejeni",neurejena, sep="/")
+  
   nova_datoteka <-read_excel(pot, skip = 13, col_names = FALSE, na = "NA")
   
   #Izbrišemo 2. in 4. stolpec
@@ -37,6 +38,10 @@ uredi.pro <- function(neurejena, leto, tip){ #vhodni podatki: neurejena npr. pro
   
   #preuredimo vrstni red stolpcev
   nova_datoteka <- nova_datoteka[c(1,4,2,3)] # Vrstni red: Country, Type, Year,Number
+  
+  nova_datoteka <- nova_datoteka %>% filter(! grepl("^Double Counts", Country))
+  nova_datoteka$Number <- parse_number(nova_datoteka$Number,
+                                       na = "publication stopped")
   
 }
 

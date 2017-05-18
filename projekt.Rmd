@@ -49,8 +49,8 @@ Stolpci v tabeli:
     + CV - commercial vehicle (komercialno vozilo)
 4. Number - število prodanih avtomobilov (številska spremenljivka)
 
-```
-head(prodaja)
+```{r prodaja}
+kable(head(prodaja))
 ```
 
 2.TABELA - uporaba avtomobilov po državah
@@ -58,7 +58,7 @@ head(prodaja)
 Iz spletnega mesta [OICA/USE](http://www.oica.net/category/vehicles-in-use/) sem uvozil tabeli o uporabi osebnih ter komercialnih vozil po državah v letih od 2005 do 2014.
 Podatki so bili v obliki EXCEL (.xlsx). Stolpci v tabeli so enaki kot pri zgornji.
 
-```
+```{r uporaba}
 kable(head(uporaba))
 ```
 
@@ -76,7 +76,7 @@ Stolpci v tabeli:
 3. Year - leto (števislka spremenljivka)
 4. Number - število prodanih avtomobilov (številska spremenljivka)
 
-```
+```{r proizvodnja}
 kable(head(proizvodnja))
 ```
 
@@ -90,7 +90,7 @@ Stolpci v tabeli:
 3. Year - leto (številska spremenljivka)
 4. Number - število proizvedenih avtomobilov (številska spremenljivka)
 
-```
+```{r proizvjalci}
 kable(head(proizvajalci))
 ```
 

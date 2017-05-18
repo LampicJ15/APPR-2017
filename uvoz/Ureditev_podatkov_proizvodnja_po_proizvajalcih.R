@@ -89,8 +89,12 @@ colnames(drzave) <- c("Group", "Country")
 #dopolnimo drzave
 proizvajalci <- c("General Motors", "Volkswagen Group", "Hyundai / Kia","Groupe PSA","Daimler","SAIC","Changan","Dongfeng Motor", "FAW","Saipa","BAIC","Chery","Fuji","AvtoVAZ","Great Wall", "Shangdong Kaima","Beijing Automotive","JAC","HAFEI","VOLVO","CHANGHE","JIANGLING")
 tovarne <- c("USA","Germany","South Korea","France","Germany","China","China","China","China","Iran","China","China","Japan","Russia","China","China","China","China","China","Sweden","China","China")
-dopolnitev <- data.frame(proizvajalci, tovarne)
-colnames(dopolnitev) <- c("Group", "Country")
+
+dopolnitev <- data.frame(Group = proizvajalci, Country = tovarne, stringsAsFactors = FALSE)
+drzave$Country <- drzave$Country %>% strapplyc("([[:alpha:]].*)") %>% unlist()
+
+
+
 drzave <- union(drzave, dopolnitev)
 drzave <-mutate_each(drzave, funs(toupper)) #vsi nizi z velikimi črkami
 drzave <- unique(drzave)
