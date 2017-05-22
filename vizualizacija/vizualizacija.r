@@ -3,6 +3,8 @@
 library(readr)
 library(dplyr)
 library(ggplot2)
+library(rworldmap)
+library(maps)
 
 prodaja <- read.csv2("podatki/urejeni/prodaja.csv")
 
@@ -60,8 +62,16 @@ pro2015 <- proizvodnja %>% filter(Year == 2015) %>%group_by(Country) %>% summari
 
 #tabela geografske širine in višine posamezne države
 koordinati <- read.csv("podatki/neurejeni/koordinati.csv")
-koordinati <- koordinati[c(1,5,6)]
-colnames(koordinati) <- c("Country","Latitude","Longitude")
+koordinati[c(2,3,4)]<-NULL
+colnames(koordinati) <- c("Country","lat","long","Icon")
+
+#popraviti tabelo koordinati ( vrednosti se pojavijo v icon - zamenjamo vrednosti lat in long ter long in icon)
+
+icon <- grep("[0-9]+", koordinati$Icon)
+koordinati$lat[icon] <- koordinati$long[icon]
+koordinati$long[icon] <-koordinati$Icon[icon]
+koordinati$Icon <- NULL #zbrišemo zadnji stolpec
+
 koordinati$Country <- toupper(koordinati$Country)
 koordinati$Country <- parse_character(koordinati$Country)
 
@@ -69,9 +79,12 @@ koordinati$Country <- parse_character(koordinati$Country)
 pro2015 <- left_join(pro2015, koordinati, by="Country")
 
 #zemljevid sveta
-library(maps)
-map()
-symbols(pro2016$Longitude, pro2016$Latitude, bg="blue",,lwd = 1, circles = pro2016$Production, inches=0.25, add = TRUE)
 
+world <- map_data("world")
+svet <- ggplot() + geom_polygon(data = world, aes(x=long, y = lat, group = group),fill="gray68",color="gray0")
+
+#dodamo podatke o proizvodnjah
+svet <- svet + geom_point(data = pro2015, aes(x = long, y = lat), color = "red")
+print(svet)
 
 
