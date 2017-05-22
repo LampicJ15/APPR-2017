@@ -43,6 +43,7 @@ uredi.pro <- function(neurejena, leto, tip){ #vhodni podatki: neurejena npr. pro
   nova_datoteka$Number <- parse_number(nova_datoteka$Number,
                                        na = "publication stopped")
   
+  return(nova_datoteka)
 }
 
 ##Uredimo podatke o proizvodnji avtobusov (BC - busses and coaches)
