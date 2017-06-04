@@ -81,10 +81,17 @@ pro2015 <- left_join(pro2015, koordinati, by="Country")
 #zemljevid sveta
 
 world <- map_data("world")
+<<<<<<< HEAD
 svet <- ggplot() + geom_polygon(data = world, aes(x=long, y = lat, group = group),fill="gray68",color="gray0") + coord_fixed(1.3)
 
 #dodamo podatke o proizvodnjah
 svet <- svet + geom_point(data = pro2015, aes(x = long, y = lat,fill = Production))
+=======
+svet <- ggplot() + geom_polygon(data = world, aes(x=long, y = lat, group = group),fill="gray68",color="gray0")
+
+#dodamo podatke o proizvodnjah
+svet <- svet + geom_point(data = pro2015, aes(x = long, y = lat), color = "red")
+>>>>>>> 6ff0e444413744fba59010b7cc8597f26ae4c293
 print(svet)
 
 
