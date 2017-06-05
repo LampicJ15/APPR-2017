@@ -56,35 +56,22 @@ print(graf.proizvodnja2)
 
 
 #prikaz podatkov na zemljevidu za proizvodnjo v letu 2015
-
 pro2015 <- proizvodnja %>% filter(Year == 2015) %>%group_by(Country) %>% summarise(Production = sum(Number))
 
-
-#tabela geografske širine in višine posamezne države
-koordinati <- read.csv("podatki/neurejeni/koordinati.csv")
-koordinati[c(2,3,4)]<-NULL
-colnames(koordinati) <- c("Country","lat","long","Icon")
-
-#popraviti tabelo koordinati ( vrednosti se pojavijo v icon - zamenjamo vrednosti lat in long ter long in icon)
-
-icon <- grep("[0-9]+", koordinati$Icon)
-koordinati$lat[icon] <- koordinati$long[icon]
-koordinati$long[icon] <-koordinati$Icon[icon]
-koordinati$Icon <- NULL #zbrišemo zadnji stolpec
-
-koordinati$Country <- toupper(koordinati$Country)
-koordinati$Country <- parse_character(koordinati$Country)
-
-#dodamo podatke o koordinatah 
-pro2015 <- left_join(pro2015, koordinati, by="Country")
-
 #zemljevid sveta
-
 world <- map_data("world")
-svet <- ggplot() + geom_polygon(data = world, aes(x=long, y = lat, group = group),fill="gray68",color="gray0") + coord_fixed(1.3)
+world<-world[c(1:5)]
+colnames(world) <-c("long","lat","group","order","Country")
+world$Country <- toupper(world$Country)
 
-#dodamo podatke o proizvodnjah
-svet <- svet + geom_point(data = pro2015, aes(x = long, y = lat,fill = Production))
-print(svet)
+#zemljevid proizvodnje avtomobilov po državah v miljonih
+pro2015 <- left_join(world,pro2015, by="Country")
+svet.product <- ggplot() + geom_polygon(data = pro2015,
+                                    aes(x=long, y = lat, group = group,fill=Production/1e6)) +
+  guides(fill = guide_colorbar(title = "Production (millions)"))+coord_fixed(1.3)
+print(svet.product)
 
+#prikaz podatkov o uporabi avtomobilov na prebivalca
+uporaba2014 <- filter(uporaba,Year==2014)
+uporaba2014 <- uporaba2014 %>%group_by(Country) %>%summarise(Use = sum(Number, na.rm = TRUE))
 
