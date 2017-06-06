@@ -28,11 +28,13 @@ Primerjal pa bom tudi posamezna podjetja glede na njihovo proizvodnjo.
 
 # Obdelava, uvoz in čiščenje podatkov
 
-```{r uvoz, echo=FALSE, message=FALSE}
-source("uvoz/Ureditev_podatkov_prodaja.R", encoding = "UTF-8")
-source("uvoz/Ureditev_podatkov_proizvodnja.R", encoding = "UTF-8")
-source("uvoz/Ureditev_podatkov_uporaba.R", encoding = "UTF-8")
-source("uvoz/Ureditev_podatkov_proizvodnja_po_proizvajalcih.R", encoding = "UTF-8")
+```{r tabele, echo=FALSE, message=FALSE}
+prodaja <- read.csv2("podatki/urejeni/prodaja.csv")
+uporaba <- read.csv2("podatki/urejeni/uporaba.csv")
+proizvodnja <- read.csv2("podatki/urejeni/proizvodnja.csv")
+proizvajalci<- read.csv2("podatki/urejeni/proizvajalci.csv")
+gdp <- read.csv2("podatki/urejeni/gdp.csv")
+populacija <- read.csv2("podatki/urejeni/populacija.csv")
 
 ```
 
@@ -43,11 +45,12 @@ Podatki so bili v obliki EXCEL (.xlsx).
 Obe tabeli sem uredil v normalizirano obliko ter ju združil.
 
 Stolpci v tabeli:
-1. Country - država (imenska spremenljivka)
-2. Type - tip vozila (imenska spremenljivka)
+
+* Country - država (imenska spremenljivka)
+* Type - tip vozila (imenska spremenljivka)
     + PC - passenger car (osebni avtomobil) 
     + CV - commercial vehicle (komercialno vozilo)
-4. Number - število prodanih avtomobilov (številska spremenljivka)
+* Number - število prodanih avtomobilov (številska spremenljivka)
 
 ```{r prodaja}
 kable(head(prodaja))
@@ -67,14 +70,15 @@ kable(head(uporaba))
 Podatke o proizvodnji avtomobilov po državah sem prav tako prenesel iz [OICA/PRODUCTION](http://www.oica.net/category/production-statistics/).Podatki so bili v večji meri v obliki PDF zato sem jih za nadalnje delo pretvoril v EXCEL. Podatke sem najprej uredil v štiri tabele (4 kategorije vozil), kjer vsaka vsebuje podatke o proizvodnji od leta 2004 do 2015. Te sem nato združil v skupno tabelo, pri kateri sem z regularnimi izrazi popravil še  napake v stolpcu Country. 
 
 Stolpci v tabeli:
-1. Country - država (imenska spremenljivka)
-2. Type - tip vozila (imenska spremenljivka)
+
+* Country - država (imenska spremenljivka)
+* Type - tip vozila (imenska spremenljivka)
     + PC - passenger car (osebni avtomobil) 
     + CV - commercial vehicle (komercialno vozilo)
     + HT - heavy trucks (tovornjaki)
     + BC - buses and coaches (avtobusi)
-3. Year - leto (števislka spremenljivka)
-4. Number - število prodanih avtomobilov (številska spremenljivka)
+* Year - leto (števislka spremenljivka)
+* Number - število prodanih avtomobilov (številska spremenljivka)
 
 ```{r proizvodnja}
 kable(head(proizvodnja))
@@ -85,18 +89,92 @@ kable(head(proizvodnja))
 Podatke o proizvodnji avtomobilov glede na proizvajalca pa sem uvozil iz [WIKI/PRODUCTION](https://en.wikipedia.org/wiki/List_of_manufacturers_by_motor_vehicle_production#2015). Te podatki so bili v obliki HTML. Tabele sem uvozil s pomočjo knjižnice `rvest`, jih pretvoril v standardno obliko ter jih uredil z regularnimi izrazi.
 
 Stolpci v tabeli:
-1. Group - podjetje oz. proizvajalec (imenska spremenljivka)
-2. Country - država (imenska spremnljivka)
-3. Year - leto (številska spremenljivka)
-4. Number - število proizvedenih avtomobilov (številska spremenljivka)
+
+* Group - podjetje oz. proizvajalec (imenska spremenljivka)
+* Country - država (imenska spremnljivka)
+* Year - leto (številska spremenljivka)
+* Number - število proizvedenih avtomobilov (številska spremenljivka)
 
 ```{r proizvjalci}
 kable(head(proizvajalci))
 ```
 
+Za nadaljno analizo oz. za lažje primerjanje med državami sem uvozil še podatke o bruto domačem proizvodu ter populaciji posameznih držav.
 
-# Analiza in vizualizacija podatkov
+5.TABELA - bruto domači proizvod držav
 
+Stolpci v tabeli:
+
+* Country - država (imenska spremnljivka)
+* Year - leto (številska spremenljivka)
+* GDPr - bruto domači proizvod (številska spremenljivka)
+
+
+```{r gdp}
+kable(head(gdp))
+```
+
+6.TABELA - populacija
+
+Podatke o številu prebivalcev posamezne države skozi leta sem uvozil iz spletne strani [The World bank](http://databank.worldbank.org/data/reports.aspx?source=health-nutrition-and-population-statistics#). 
+
+Stolpci v tabeli:
+
+* Country - država (imenska spremnljivka)
+* Year - leto (številska spremenljivka)
+* Number - števio ljudi (številska spremenljivka)
+
+```{r populacija}
+kable(head(populacija))
+```
+
+# Pregled in vizualizacija podatkov
+
+Za lažje izvajanje analize, sem podatke predstavil s pomočjo grafov. Iz grafov lahko razberemo trende gibanja posameznih količin in segmente zanimive za bolj podrobno analizo.
+
+```{r vizualizacija, echo=FALSE, message=FALSE}
+source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
+```
+##Prodaja avtomobilov
+
+Graf prikazuje svetovno prodajo avtomobilov. Opazimo, da se je v času krize prodaja avtomobilov zmanjšala.
+
+
+```{r histogram1, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+graf.prodaja
+```
+
+```{r histogram2, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+graf.prodaja2
+```
+
+##Uporaba avtomobilov
+
+
+```{r histogram3, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+graf.uporaba
+```
+
+
+```{r histogram4, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+graf.uporaba2
+```
+
+##Proizvodnja atomobilov
+
+```{r histogram5, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+graf.proizvodnja
+```
+
+
+```{r histogram6, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+graf.proizvodnja2
+```
+
+
+```{r zemljevid, echo=FALSE, fig.align='left', fig.cap='Zemljevid proizvodnje avtomobilov v letu 2015',fig.width=10,fig.height=12}
+svet.product
+```
 
 
 # Napredna analiza podatkov
