@@ -21,7 +21,8 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Za temo anlize sem si izbral svetovni avtomobilski trg. Cilj projekta je primerjava in razvrstitev držav glede na proizvodnjo, prodajo in uporabo določenega tipa avtomobilov, poiskati povezave med danimi količinami z razvitostjo držav (BDP) ter gospodarski vpliv avtomobilskega trga.
+Za temo anlize sem si izbral svetovni avtomobilski trg, ki je eden izmed najpomembnejših svetovnih gospodarskih sektorjev glede na prihodek.
+Cilj projekta je primerjava in razvrstitev držav glede na proizvodnjo, prodajo in uporabo določenega tipa avtomobilov, poiskati povezave med danimi količinami z razvitostjo držav (BDP) ter gospodarski vpliv avtomobilskega trga.
 Primerjal pa bom tudi posamezna podjetja glede na njihovo proizvodnjo.
 
 ***
@@ -130,51 +131,71 @@ kable(head(populacija))
 
 # Pregled in vizualizacija podatkov
 
-Za lažje izvajanje analize, sem podatke predstavil s pomočjo grafov. Iz grafov lahko razberemo trende gibanja posameznih količin in segmente zanimive za bolj podrobno analizo.
+Za boljši pregled ter lažje izvajanje anelize na podatkih, sem jih predstavil s pomočjo grafov. Iz grafov lahko razberemo trende gibanja posameznih količin in segmente zanimive za bolj podrobno analizo.
 
 ```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE}
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 ##Prodaja avtomobilov
 
-Graf prikazuje svetovno prodajo avtomobilov. Opazimo, da se je v času krize prodaja avtomobilov zmanjšala.
+Graf prikazuje svetovno prodajo avtomobilov. 
+Prodaja je trenutno v vzponu, edini padec pa je bil v času krize (l.2007 - 2009). Pri nadaljni analizi se bom tako osredotočil na države, katerim se je prodaja najbolj povečala/zmanjšala.
 
 
-```{r histogram1, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+```{r histogram1, echo=FALSE, message=FALSE, fig.align='left'} 
 graf.prodaja
 ```
 
-```{r histogram2, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+Drugi graf pa prikazuje prodajo avtomobilov ločeno glede na tip vozila. Tu je zanimivo, da je bil padec pri prodaji gospodarskih vozil (commercial vehicle) večji kot pri osebnih vozil (passanger car).
+V letih od 2007 do 2009 se je delež prodanih gospodarskih vozil zmanjšal za kar 23,22%, delež prodanih osebnih vozil pa le za 2,32%.
+
+
+```{r histogram2, echo=FALSE, message=FALSE, fig.align='left'}
 graf.prodaja2
 ```
 
 ##Uporaba avtomobilov
 
+Sledeči graf prikazuje svetono uporabo avtomobilov. Za razliko od prodaje je uporaba avtomobilov skozi celotno opazovano obdobje v vzponu. 
+V ta namen bom poiskal države v katerih se je uporaba avtomobilov najbolj povečala/zmanjšala in vzroke za to. 
 
-```{r histogram3, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+
+```{r histogram3, echo=FALSE, message=FALSE, fig.align='left'}
 graf.uporaba
 ```
 
+Iz spodnjega grafa opazimo, da se je svetovna uporaba gospodarskih vozil v salbem desetletju povečala za 37,6%, uporaba osebnih vozil pa 39,6%. 
 
-```{r histogram4, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+```{r histogram4, echo=FALSE, message=FALSE, fig.align='left'}
 graf.uporaba2
 ```
 
 ##Proizvodnja atomobilov
 
-```{r histogram5, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+Spodnji graf prikazuje svetovno proizvodnjo avtomobilov v obdobju od l.2005 do l.2015.
+Podobno kot pri prodaji je proizvodnja v vzponu, zamanjšanje proizvodnje le v obdobju od l.2007 do l.2009 za 16%.
+
+
+
+```{r histogram5, echo=FALSE, message=FALSE, fig.align='left'}
 graf.proizvodnja
 ```
 
 
-```{r histogram6, echo=FALSE, message=FALSE, fig.align='left', fig.cap='Graf svetovne prodaje avtomobilov'}
+```{r histogram6, echo=FALSE, message=FALSE, fig.align='left'}
 graf.proizvodnja2
 ```
 
+Iz zemljevida lahko opazimo, da ima največjo proizvodnjo Kitajska, sledijo pa ji še ZDA, Japonska, Nemčija in pa Južna Koreja.
+Pri analizi proizvodnje avtomobilov se bom tako osredotočil na zgornje države.
 
-```{r zemljevid, echo=FALSE, fig.align='left', fig.cap='Zemljevid proizvodnje avtomobilov v letu 2015',fig.width=10,fig.height=12}
+```{r zemljevid, echo=FALSE, fig.align='left',fig.cap='Proizvodnja avtomobilov v letu 2015',fig.width=10}
 svet.product
 ```
+
+Sedaj ko imam nek pregled nad avtomobilskim trgom, bom v naslednji fazi napredne analize poskušal, kakšne so korelacije med posameznimi kategorijami.
+
+
 
 
 # Napredna analiza podatkov
