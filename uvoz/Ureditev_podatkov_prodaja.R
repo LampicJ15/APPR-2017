@@ -65,7 +65,7 @@ prodajaKA$Year <- parse_integer(prodajaKA$Year)
 
 #združimo tabeli
 prodaja <- rbind(prodajaKA, prodajaOA)
-
+prodaja$Country[grep("TUKMENISTAN",prodaja$Country)] <-"TURKMENISTAN"
 #zapišimo datoteko
 write.csv2(prodaja, "podatki/urejeni/prodaja.csv",row.names = FALSE)
 

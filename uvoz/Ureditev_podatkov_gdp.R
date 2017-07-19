@@ -34,6 +34,9 @@ gdp$Country <- toupper(gdp$Country)
 #rabimo podatke samo od leta 2004 naprej
 gdp <- gdp %>% filter(Year >= 2004)
 
+#popravek imena 
+gdp$Country[ grep("UNITED STATES",gdp$Country)] <- "UNITED STATES OF AMERICA"
+
 #zapišimo datoteko
 write.csv2(gdp, "podatki/urejeni/gdp.csv",row.names = FALSE)
 

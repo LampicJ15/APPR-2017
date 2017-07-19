@@ -7,15 +7,10 @@ library(rworldmap)
 library(maps)
 
 prodaja <- read.csv2("podatki/urejeni/prodaja.csv")
-proizvodnja <- read.csv2("podatki/urejeni/proizvodnja.csv")
-uporaba <- read.csv2("podatki/urejeni/uporaba.csv")
-proizvajalci <- read.csv2("podatki/urejeni/proizvajalci.csv")
-populacija <- read.csv2("podatki/urejeni/populacija.csv")
 gdp <- read.csv2("podatki/urejeni/gdp.csv")
 
-########################################################################################################################################################
 
-#Analiza prodaje
+#Analiza prodaje (vpliv financne krize na prodajo avtomiblov)
 letna.prodaja <- prodaja %>% group_by(Country,Year) %>% summarise( Annual = sum(Number)) 
 
 ##sprememba v prodaji v času finančne krize (leto 2007 -> leto 2009)
@@ -57,19 +52,40 @@ for (drzava in ostale.drzave2){
 sprememba <- left_join(sprememba.prodaje,sprememba.BDP)
 sprememba <- sprememba[-which(is.na(sprememba$BDP_change)),]
 
-##Razvrščanje držav glede na vpliv krize na prodajo 
+##Razvrščanje držav glede na vpliv finančne krize na prodajo 
 
 k <- kmeans(scale(sprememba.prodaje$Sales_change), 7, nstart = 1000)
 skupine <- data.frame(Country=sprememba.prodaje$Country, Group = factor(k$cluster))
+skupine$Country <- as.character(skupine$Country)
+
+##zemljevid 
+world <- map_data("world")
+world<-world[c(1:5)]
+colnames(world) <-c("long","lat","group","order","Country")
+world$Country <- toupper(world$Country)
+
+
+##popravek imen v tabeli skupina
+fix.cou <- c("AZERBAIJAN","BOSNIA AND HERZEGOVINA","BURKINA FASO","CAMBODIA","DEMOCRATIC REPUBLIC OF THE CONGO","GUIANA","HONG-KONG","IRAQ","KYRGYZISTAN","MOLDOVA","TAJIKISTAN","TAHITI","UK","USA")
+test <- left_join(skupine, world, by="Country")
+bro.cou <- unique( test$Country[which(is.na(test$lat))])
+
+i = 1
+for (drzava in bro.cou){
+  skupine$Country[ grep(drzava, skupine$Country)] <- fix.cou[i]
+  i <- i +1
+}
+skupine <- left_join(world,skupine, by="Country")
+map1 <- ggplot() + geom_polygon(data = skupine,aes(x=long, y = lat, group = group,fill=Group))
+
+
+##korelacija med spremembo gospodarkse rasti ter prodajo avtomobilov v letih od 2007-2009
+cor.SB <- cor(sprememba$Sales_change,sprememba$BDP_change)
 
 
 
-##korelacija med spremembo gospodarkse rasti ter prodajo avtomobilov
-cor(sprememba$Sales_change,sprememba$BDP_change)
 
 
-
-##Razvrščanje držav glede na število prodanih avtomobilov v letu 2017
 
 
 

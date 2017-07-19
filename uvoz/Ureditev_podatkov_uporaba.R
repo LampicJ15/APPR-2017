@@ -73,5 +73,12 @@ uporabaKA$Number <- 1000*uporabaKA$Number
 
 #združimo tabeli
 uporaba <- rbind(uporabaKA, uporabaOA)
+
+#zbrišemo vrstice v katerih ni imena držav
+uporaba <- uporaba[-grep("ASIA",uporaba$Country),]
+uporaba <- uporaba[-grep("CENTRAL",uporaba$Country),]
+uporaba <- uporaba[-grep("EUROPE",uporaba$Country),]
+uporaba <- uporaba[-grep("NAFTA",uporaba$Country),]
+uporaba <- uporaba[-grep("ALL",uporaba$Country),]
 #zapišimo datoteko
 write.csv2(uporaba, "podatki/urejeni/uporaba.csv",row.names = FALSE)
