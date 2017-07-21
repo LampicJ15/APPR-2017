@@ -1,17 +1,35 @@
 library(shiny)
 
-shinyUI(fluidPage(
-  
-  titlePanel("Slovenske občine"),
-  
-  tabsetPanel(
-      tabPanel("Velikost družine",
-               DT::dataTableOutput("druzine")),
+shinyUI(navbarPage(title="Svetovni trg avtomobilov",
+      tabPanel(title = "Prodaja avtomobilov",
+               selectInput(inputId = 'drzava',
+                           label = 'Država:',
+                           choices = unique(prodaja$Country),
+                           multiple = FALSE),
+               radioButtons(inputId = 'tip',
+                            label = 'Tip vozila:',
+                            choiceValues = list('CV', 'PC'),
+                            choiceNames = list('Gospodarska vozila', 'Osebna vozila')),
+               plotOutput('graf')),
+      tabPanel(title = "Proizvodnja avtomobilov",
+               selectInput(inputId = 'drzava1',
+                           label = 'Država:',
+                           choices = unique(proizvodnja$Country),
+                           multiple = FALSE),
+               radioButtons(inputId = 'tip1',
+                            label = 'Tip vozila:',
+                            choiceValues = list('CV', 'PC','HT','BC'),
+                            choiceNames = list('Gospodarska vozila', 'Osebna vozila','Tovornjaki','Avtobusi')),
+               plotOutput('graf1')),
+      tabPanel(title = "Uporaba avtomobilov",
+               selectInput(inputId = 'drzava2',
+                           label = 'Država:',
+                           choices = unique(uporaba$Country),
+                           multiple = FALSE),
+               radioButtons(inputId = 'tip2',
+                            label = 'Tip vozila:',
+                            choiceValues = list('CV', 'PC'),
+                            choiceNames = list('Gospodarska vozila','Osebna vozila')),
+               plotOutput('graf2'))))
       
-      tabPanel("Število naselij",
-               sidebarPanel(
-                  uiOutput("pokrajine")
-                ),
-               mainPanel(plotOutput("naselja")))
-    )
-))
+      

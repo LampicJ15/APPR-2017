@@ -53,7 +53,7 @@ Stolpci v tabeli:
     + CV - commercial vehicle (komercialno vozilo)
 * Number - število prodanih avtomobilov (številska spremenljivka)
 
-```{r prodaja}
+```{r prodaja,echo=FALSE, message=FALSE}
 kable(head(prodaja))
 ```
 
@@ -62,7 +62,7 @@ kable(head(prodaja))
 Iz spletnega mesta [OICA/USE](http://www.oica.net/category/vehicles-in-use/) sem uvozil tabeli o uporabi osebnih ter komercialnih vozil po državah v letih od 2005 do 2014.
 Podatki so bili v obliki EXCEL (.xlsx). Stolpci v tabeli so enaki kot pri zgornji.
 
-```{r uporaba}
+```{r uporaba,echo=FALSE, message=FALSE}
 kable(head(uporaba))
 ```
 
@@ -81,7 +81,7 @@ Stolpci v tabeli:
 * Year - leto (števislka spremenljivka)
 * Number - število prodanih avtomobilov (številska spremenljivka)
 
-```{r proizvodnja}
+```{r proizvodnja,echo=FALSE, message=FALSE}
 kable(head(proizvodnja))
 ```
 
@@ -96,7 +96,7 @@ Stolpci v tabeli:
 * Year - leto (številska spremenljivka)
 * Number - število proizvedenih avtomobilov (številska spremenljivka)
 
-```{r proizvjalci}
+```{r proizvjalci,echo=FALSE, message=FALSE}
 kable(head(proizvajalci))
 ```
 
@@ -111,7 +111,7 @@ Stolpci v tabeli:
 * GDPr - bruto domači proizvod (številska spremenljivka)
 
 
-```{r gdp}
+```{r gdp,echo=FALSE, message=FALSE}
 kable(head(gdp))
 ```
 
@@ -125,7 +125,7 @@ Stolpci v tabeli:
 * Year - leto (številska spremenljivka)
 * Number - števio ljudi (številska spremenljivka)
 
-```{r populacija}
+```{r populacija, echo=FALSE, message=FALSE}
 kable(head(populacija))
 ```
 
@@ -195,10 +195,94 @@ svet.product
 
 Sedaj ko imam nek pregled nad avtomobilskim trgom, bom v naslednji fazi napredne analize poskušal, kakšne so korelacije med posameznimi kategorijami.
 
+#ANALIZA
+
+Pri analizi trga sem se osredotočil na časovno obdobje finančne krize (od l.2007 do l.2009), katere del je bila tudi kriza avtomobilske industrije. Kriza je prizadela evropske in azijske avtomobislke proizvajalce, vendar se je v prvi vrsti občutila v ameriški avtomobilski industriji.
+Samo industrijo pa je dodatno oslabilo še povečanje cen goriv za avtomobile, ki so bile povezane z energetsko krizo v obdobju od l.2003 do l.2008. 
+
+##Analiza svetovne prodaje avtomobilov
+
+```{r analiza, echo=FALSE, message=FALSE, warning=FALSE}
+source("analiza/analiza_prodaja.r", encoding = "UTF-8")
+```
+Pri analizi prodaje sem izračunal odstotno spremebo v prodaji za vsako posamezno državo od l.2007 pa do l.2009, jih potem glede na to tudi razvrstil, nato pa sem še izračunal korelacijo med spremebo v prodaji avtomobilov in spremembo BDP.
+
+Največji padec v prodaji avtomobilov je zabeležila __Islandija__ (-87,2%), ki jo je v tem obdobju močno prizadela finančna kriza, saj se je njen BDP zmanjšal za kar 39,48%. 
+
+Države, ki so glavne akterke na avtomislkem trgu, pa so se odrezale različno.
+
+* __Kitajska__ je zabeležila 55,2% povečanje v prodaji avtomobilov ter 43,41% povečanja BDP. Povečanje prodaje je posledica zmanjšanja davkov na avtomobile.
+
+* __Indija__ je zabeležila 13,67% povečanje prodaje avtombilov ter 10,96% povečanja BDP, saj je nacionalna banka znižala obrestne mere posojil za avtomobile.
+
+* __Južna Koreja__ pa je imela 14,33% povečanje prodaje ter -19,66% zmanjšanje BDP.
+Zaslugo za to si lasti njihov največji proizvajalec avtomobilov Hyundai-Kia, ki je nadaljeval rast prodaje v času, ko je večini strmo padala. Zelo dobro so izkoristili krizo avtomobilske industrije s proizvodnjo cenovno ugodnih vendar kakovostnih avtomobilov.
+
+* __Japonska__ je imela situacijo ravno nasprotno kot Južna Korejska. Imela je -13.18% upad v prodaji avtomobilov ter 15.86% spremebo BDP. Upad v prodaji je bila posledica visokih cen govriv ter slabe razmere na trgu ZDA, ki pa so njihov največji izvoznik.
+
+* __Francija/Nemčija__ sta v tem obdobju izvajale številne ukrepe za izboljšanje avtmobilske industrije, kar se jim je obrestovalo saj sta imeli obe državi pozitivni spremebi v prodaji (FR 3,4%, NEM 16,4%).
+
+* __Velika Britanija__ pa je imela 20.62% znižanje v prodaji ter -22.73% spremebo BDP. 
+
+* __ZDA__ so imele kar 35.59% upad v prodaji avtomobilov.
+
+Zanimivo pa je tudi dejstvo, da je korelacijski koeficient sprembe v prodaji avtomobilov ter spremembe v BDP le __0.242__.
+
+__Razvrstitev držav glede na spremebo prodaje avtomobilov__
+```{r zemljevid2, echo=FALSE, fig.align='left',fig.width=10}
+map1
+```
+
+##Analiza svetovne proizvodnje
+
+```{r analiza_proizvodnje, echo=FALSE, message=FALSE, warning=FALSE}
+source("analiza/analiza_proizvodnja.r", encoding = "UTF-8")
+```
+
+Pri analizi svetovne proizvodnje avtomobilov sem pravtako izračunal odstotno spremebo v proizvodnji za vsako posamezno državo od l.2007 pa do l.2009, jih potem glede na to tudi razvrstil, nato pa sem še izračunal korelacijo med spremebo v proizvodnji avtomobilov in spremembo BDP.
+
+Finančna kriza je najbolj prizadela avtomobilsko industrijo __Ukrajine__ (zmanjšanje za 82,78%), proizvodnjo avtomobilov pa je v tem obdobju najbolj povečala __Srbija__ (povečanje za 69,02%). 
+
+__Podatki o spremebi proizvodnje največjih proizvajalk avtomobilov__
+
+```{r gl_drzave,echo=FALSE, message=FALSE}
+kable(head(gl_drzave))
+```
+
+Korelacijski koeficient spremebe proizvodnje avtomobilov in spremebe BDP je __0,385__, iz tega bi lahko domnevali, da je imela finančna kriza večji vpliv na proizvodnjo avtomobilov kot pa prodajo.
+
+__Razvrstitev držav glede na spremebo v proizvodnji avtomobilov__
+```{r zemljevid3, echo=FALSE, fig.align='left',fig.width=10}
+map2
+```
+
+##Analiza svetovne uporabe avtomobilov
+```{r analiza_uporaba, echo=FALSE, message=FALSE, warning=FALSE}
+source("analiza/analiza_uporaba.r", encoding = "UTF-8")
+```
+
+Pri analizi uporabe avtomobilov sem izračunal spremebe uporabe za vsako leto posebej ter za celotno obdobje od l.2005 pa do l.2014. Nato pa sem države razvrstil še glede na spremebo uporabe.
+
+Največji upad pri uporabi avtomobilov je imela __Palestina__ v v letu 2007, ko se ji je uporaba zmanjšala za kar __32,35%__. 
+Verjetno je na zmanjšanje uporabe vplival tedanji konflikt med Fatahom in Hamasom (bitka za Gazo), ki je vodil do razpustitve vlade ter deliteve palestinskih ozemelj na dve območji.
+
+Uporaba pa se je najbolj povečala v __Tanzaniji__ l.2008 za kar __95%__, ki pa je verjetno posledica gospodarske rasti države.
+Za obdobje od leta 2005 do 2014 pa je uporabo najbolj zmanjšala __Latvija__ za __13,89%__, za razliko se je v __Sloveniji__ uporaba avtomobilov povečala za 13,1%.
+
+__Razvrstitev držav glede na spremebo v uporabi avtomobilov v letih 2005-2014__
+```{r zemljevid4, echo=FALSE, fig.align='left',fig.width=10}
+map3
+```
+
+#Aplikacija
+
+```{r shiny, echo = FALSE,message=FALSE, warning=FALSE}
+shinyAppDir("shiny", options=list(width="100%", height=600))
+```
 
 
 
-# Napredna analiza podatkov
+
 
 
 

@@ -65,7 +65,23 @@ colnames(world) <-c("long","lat","group","order","Country")
 world$Country <- toupper(world$Country)
 
 skupine <- left_join(world,skupine, by="Country")
-map2 <- ggplot() + geom_polygon(data = skupine,aes(x=long, y = lat, group = group,fill=Group))
+map2 <- ggplot() + geom_polygon(data = skupine,aes(x=long, y = lat, group = group,fill=Group)) + scale_fill_discrete(name="Skupina")
 
 ####korelacija med spremembo gospodarkse rasti ter proizvodnjo avtomobilov v letih od 2007-2009
 cor.PB <- cor(sprememba$Production_change,sprememba$BDP_change)
+
+##največji padec v proizvodnji
+padec <- sprememba[which.min(sprememba$Production_change),]
+
+##največji porast v prodaji
+porast <- sprememba[which.max(sprememba$Production_change),]
+
+##tabela o spremebi proizvodnje največjih svetovnih proizvajalk
+gl_drzave <- data.frame()
+for (drzava in c("CHINA","INDIA","USA","UNITED KINGDOM","SOUTH KOREA","GERMANY","FRANCE","JAPAN")){
+  gl_drzave <- rbind(gl_drzave, sprememba[grep(paste("^",drzava,"$", sep=""),sprememba$Country),])
+}
+colnames(gl_drzave) <- c("Država","Sprememba proizvodnje (%)", "Sprememba BDP (%)")
+
+ 
+

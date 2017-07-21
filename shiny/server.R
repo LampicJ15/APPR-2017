@@ -1,24 +1,34 @@
 library(shiny)
 
 shinyServer(function(input, output) {
-  output$druzine <- DT::renderDataTable({
-    dcast(druzine, obcina ~ velikost.druzine, value.var = "stevilo.druzin") %>%
-      rename(`Občina` = obcina)
+  
+  output$graf <- renderPlot({
+    data <- filter(prodaja, 
+                   Country == input$drzava, Type == input$tip)
+    
+    g <- ggplot(data = data, aes(x = factor(Year), y = Number/1e6)) + geom_bar(stat="identity", position="dodge",fill ="cornflowerblue")
+    g <- g + xlab("Leto") + ylab("Število prodanih avtomobilov") 
+    
+    g
   })
   
-  output$pokrajine <- renderUI(
-    selectInput("pokrajina", label="Izberi pokrajino",
-                choices=c("Vse", levels(obcine$pokrajina)))
-  )
-  output$naselja <- renderPlot({
-    main <- "Pogostost števila naselij"
-    if (!is.null(input$pokrajina) && input$pokrajina %in% levels(obcine$pokrajina)) {
-      t <- obcine %>% filter(pokrajina == input$pokrajina)
-      main <- paste(main, "v regiji", input$pokrajina)
-    } else {
-      t <- obcine
-    }
-    ggplot(t, aes(x = naselja)) + geom_histogram() +
-      ggtitle(main) + xlab("Število naselij") + ylab("Število občin")
+  output$graf1 <- renderPlot({
+    data <- filter(proizvodnja, 
+                   Country == input$drzava1, Type == input$tip1)
+    
+    g1 <- ggplot(data = data, aes(x = factor(Year), y = Number/1e6)) + geom_bar(stat="identity", position="dodge",fill ="cornflowerblue")
+    g1 <- g1 + xlab("Leto") + ylab("Število proizvedenih avtomobilov") 
+    
+    g1
+  })
+  
+  output$graf2 <- renderPlot({
+    data <- filter(uporaba, 
+                   Country == input$drzava2, Type == input$tip2)
+    
+    g2 <- ggplot(data = data, aes(x = factor(Year), y = Number/1e6)) + geom_bar(stat="identity", position="dodge",fill ="cornflowerblue")
+    g2 <- g2 + xlab("Leto") + ylab("Število avtomobilov v uporabi") 
+    
+    g2
   })
 })

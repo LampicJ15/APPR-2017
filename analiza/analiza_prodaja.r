@@ -76,13 +76,17 @@ for (drzava in bro.cou){
   i <- i +1
 }
 skupine <- left_join(world,skupine, by="Country")
-map1 <- ggplot() + geom_polygon(data = skupine,aes(x=long, y = lat, group = group,fill=Group))
+map1 <- ggplot() + geom_polygon(data = skupine,aes(x=long, y = lat, group = group,fill=Group)) + scale_fill_discrete(name="Skupina")
 
 
 ##korelacija med spremembo gospodarkse rasti ter prodajo avtomobilov v letih od 2007-2009
 cor.SB <- cor(sprememba$Sales_change,sprememba$BDP_change)
 
+##največji padec v prodaji
+padec <- sprememba[which.min(sprememba$Sales_change),]
 
+##največji porast v prodaji
+porast <- sprememba[which.max(sprememba$Sales_change),]
 
 
 
