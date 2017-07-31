@@ -2,6 +2,7 @@ library(shiny)
 
 shinyUI(navbarPage(title="Svetovni trg avtomobilov",
       tabPanel(title = "Prodaja avtomobilov",
+               mainPanel("Na spodnjem grafu si lahko ogledamo prodajo gospoadrskih ali osebnih avtomobilov določene države skozi leta."),
                selectInput(inputId = 'drzava',
                            label = 'Država:',
                            choices = unique(prodaja$Country),
@@ -12,6 +13,7 @@ shinyUI(navbarPage(title="Svetovni trg avtomobilov",
                             choiceNames = list('Gospodarska vozila', 'Osebna vozila')),
                plotOutput('graf')),
       tabPanel(title = "Proizvodnja avtomobilov",
+               mainPanel("Na spodnjem grafu si lahko ogledamo proizvodnjo tovornjakov, avtobusov in gospoadrskih ter osebnih avtomobilov določene države skozi leta."),
                selectInput(inputId = 'drzava1',
                            label = 'Država:',
                            choices = unique(proizvodnja$Country),
@@ -22,6 +24,7 @@ shinyUI(navbarPage(title="Svetovni trg avtomobilov",
                             choiceNames = list('Gospodarska vozila', 'Osebna vozila','Tovornjaki','Avtobusi')),
                plotOutput('graf1')),
       tabPanel(title = "Uporaba avtomobilov",
+               mainPanel("Na spodnjem grafu si lahko ogledamo uporabo gospoadrskih ali osebnih avtomobilov določene države skozi leta."),
                selectInput(inputId = 'drzava2',
                            label = 'Država:',
                            choices = unique(uporaba$Country),
@@ -30,6 +33,15 @@ shinyUI(navbarPage(title="Svetovni trg avtomobilov",
                             label = 'Tip vozila:',
                             choiceValues = list('CV', 'PC'),
                             choiceNames = list('Gospodarska vozila','Osebna vozila')),
-               plotOutput('graf2'))))
+               plotOutput('graf2')),
+      
+      tabPanel(title = "Proizvajalci avtomobilov",
+               mainPanel("Spodnji tortni graf prikazuje deleže proizvedenih avtomobilov največjih desetih tovarn"),
+               selectInput(inputId = 'leto',
+                           label = 'Leto:',
+                           choices = sort(unique(proizvajalci$Year)),
+                           multiple = FALSE),
+               plotOutput('graf3'))
+      ))
       
       

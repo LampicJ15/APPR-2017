@@ -5,7 +5,7 @@ library(rworldmap)
 library(maps)
 
 uporaba <- read.csv2("podatki/urejeni/uporaba.csv")
-
+proizvajalci<- read.csv2("podatki/urejeni/proizvajalci.csv")
 
 ########################################################################################################################################################
 
